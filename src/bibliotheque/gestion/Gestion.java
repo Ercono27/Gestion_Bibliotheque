@@ -152,11 +152,11 @@ public class Gestion {
         System.out.println("etat  ");
         String etat=sc.next();
         System.out.println("ouvrage ");
-        int choix = Utilitaire.choixListe(louv);
+        int choix=Utilitaire.choixListe(louv);
         Exemplaire ex = new Exemplaire(mat,etat,louv.get(choix-1));
         lex.add(ex);
         System.out.println("exemplaire créé");
-        //TODO attribuer rayon
+        choix=Utilitaire.choixListe(lrayon);
     }
 
     private void gestOuvrages() {
@@ -165,6 +165,7 @@ public class Gestion {
         String titre= sc.nextLine();
         System.out.println("age minimum");
         int ageMin= sc.nextInt();
+        String langue_temp;
         sc.skip("\n");
         System.out.println("date de parution");
 
@@ -213,19 +214,23 @@ public class Gestion {
                             do{
                                 choix=Utilitaire.choixListe(langues);
                                 if(choix==langues.size())break;
-                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+                                langue_temp=langues.get(choix-1);
+                                if (!(((DVD)o).getAutresLangues().contains(langue_temp)||((DVD)o).getLangue().equals(langue_temp)))
+                                    ((DVD)o).getAutresLangues().add(langue_temp);
                             }while(true);
                            System.out.println("sous-titres");
                             do{
                              choix=Utilitaire.choixListe(langues);
+                             langue_temp=langues.get(choix-1);
                              if(choix==langues.size())break;
-                             ((DVD)o).getSousTitres().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set
+                             if (!((DVD)o).getSousTitres().contains(langue_temp))
+                                 ((DVD)o).getSousTitres().add(langue_temp);
                              }while(true);
                             ;break;
             }
            louv.add(o);
         System.out.println("ouvrage créé");
-        //TODO ajouter 1 auteur à la liste des auteurs
+        gestAuteurs();
     }
 
        private void gestAuteurs() {

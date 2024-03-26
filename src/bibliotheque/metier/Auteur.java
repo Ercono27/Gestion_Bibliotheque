@@ -21,36 +21,27 @@ public class Auteur {
     public String getNom() {
         return nom;
     }
-
     public void setNom(String nom) {
         this.nom = nom;
     }
-
     public String getPrenom() {
         return prenom;
     }
-
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
     public String getNationalite() {
         return nationalite;
     }
-
     public void setNationalite(String nationalite) {
         this.nationalite = nationalite;
     }
-
     public List<Ouvrage> getLouvrage() {
         return louvrage;
     }
-
     public void setLouvrage(List<Ouvrage> louvrage) {
         this.louvrage = louvrage;
     }
-
-
 
     @Override
     public boolean equals(Object o) {
