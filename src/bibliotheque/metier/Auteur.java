@@ -1,6 +1,5 @@
 package bibliotheque.metier;
 
-import java.util.ArrayList;
 import java.util.*;
 
 import static bibliotheque.metier.TypeOuvrage.LIVRE;
@@ -10,6 +9,7 @@ public class Auteur {
     private  String nom,prenom;
     private String nationalite;
     private Set<Ouvrage> louvrage = new HashSet<>();
+
 
     public Auteur(String nom, String prenom, String nationalite) {
         this.nom = nom;
@@ -49,6 +49,7 @@ public class Auteur {
     public void setLouvrage(Set<Ouvrage> louvrage) {
         this.louvrage = louvrage;
     }
+
 
 
     @Override
