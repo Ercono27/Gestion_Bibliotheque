@@ -20,7 +20,7 @@ public class Gestion {
     private List<Ouvrage> louv= new ArrayList<>();
     private List<Exemplaire> lex = new ArrayList<>();
     private List<Rayon> lrayon= new ArrayList<>();
-    private List<Location> lloc = new ArrayList<>();
+    public static final Map<Exemplaire, Lecteur> lloc = new HashMap<>();
 
 
     public void populate(){
@@ -72,15 +72,9 @@ public class Gestion {
         Lecteur lec = new Lecteur(1,"Dupont","Jean",LocalDate.of(2000,1,4),"Mons","jean.dupont@mail.com","0458774411");
         llect.add(lec);
 
-        Location loc = new Location(LocalDate.of(2023,2,1),LocalDate.of(2023,3,1),lec,e);
-        lloc.add(loc);
-        loc.setDateRestitution(LocalDate.of(2023,2,4));
-
         lec = new Lecteur(1,"Durant","Aline",LocalDate.of(1980,10,10),"Binche","aline.durant@mail.com","045874444");
         llect.add(lec);
 
-        loc = new Location(LocalDate.of(2023,2,5),LocalDate.of(2023,3,5),lec,e);
-        lloc.add(loc);
     }
 
     private void menu() {
@@ -102,7 +96,15 @@ public class Gestion {
     }
 
     private void gestRestitution() {
-        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        int choix, i = 0;
+        Exemplaire exRestitue;
+        for (Exemplaire e : lex) {
+            i++;
+        }
+        System.out.println("Votre choix: ");
+        choix = sc.nextInt() - 1;
+        lex.get(choix).modifierEtat("Libre");
+        exRestitue = lex.get(choix);
     }
 
     private void gestLocations() {
@@ -110,7 +112,6 @@ public class Gestion {
         List<Exemplaire> lex2 = new ArrayList<>(lex);
         Iterator<Exemplaire> itlex2 = lex2.iterator();
         while(itlex2.hasNext()){
-            if(itlex2.next().enLocation()) itlex2.remove();
         }
         lex2.sort(new ExemplaireMatriculeComparator());
         choix =choixListe(lex2);
@@ -119,7 +120,6 @@ public class Gestion {
         choix=choixListe(llect);
         if(choix==0)return;
         Lecteur lec = llect.get(choix-1);
-        lloc.add(new Location(lec,ex));
     }
 
     private void gestLecteurs() {
@@ -190,7 +190,10 @@ public class Gestion {
            }
 
     private void gestOuvrages() {
-      /*  Ouvrage o = null;
+
+
+/*
+       Ouvrage o = null;
         System.out.println("titre");
         String titre= sc.nextLine();
         System.out.println("age minimum");
@@ -243,19 +246,24 @@ public class Gestion {
                             do{
                                 choix=Utilitaire.choixListe(langues);
                                 if(choix==langues.size())break;
+                                if(langues.contains(choix))break;
                                 ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
                             }while(true);
                            System.out.println("sous-titres");
                             do{
                              choix=Utilitaire.choixListe(langues);
                              if(choix==langues.size())break;
+                             if(langues.contains(choix))break;
                              ((DVD)o).getSousTitres().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set
                              }while(true);
                             ;break;
-            }*/
+            }
 
 
 
+
+
+*/
         TypeOuvrage[] tto = TypeOuvrage.values();
         List<TypeOuvrage> lto = new ArrayList<>(Arrays.asList(tto));
         int choix = choixListe(lto);
